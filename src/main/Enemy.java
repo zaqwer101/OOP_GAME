@@ -6,6 +6,7 @@ public class Enemy extends Creature {
 		super(name,location);
 	}
 	
+        @Override
 	public void doSmth(Creature creature)
 	{
 		if(this.alive)

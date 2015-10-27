@@ -1,25 +1,27 @@
 package main;
-import java.util.List;
+import java.util.ArrayList;
 
-public class Creature {
+public abstract class Creature {
 public Location location; //Ссылка на текущую локацию
 public String name;
 int age,damage,hp;
 boolean alive;
-public List<Item> inventory;
+public ArrayList<Item> inventory;
 boolean wantToEat;
 public int _food;
 public Creature(String name, Location location)
 {
-	this.hp = 1;
-	this.damage = 0;
-	this._food = 3;
-	this.name = name;
-	this.age = 0;
-	this.alive = true;
-	this.wantToEat = false;
-        this.moveTo(location);
-	OOP_RPG.log += this.name + " родилсо и гатов убивать\n";
+        
+    this.hp = 1;
+    this.damage = 0;
+    this._food = 3;
+    this.name = name;
+    this.age = 0;
+    this.alive = true;
+    this.wantToEat = false;
+    this.inventory = new ArrayList<Item>();
+    this.moveTo(location);
+    OOP_RPG.log += this.name + " родилсо и гатов убивать\n";
 }
 
 
@@ -81,4 +83,7 @@ public void attack(Creature enemy)
             this.moveTo(location);
         }
     }
+
+    public abstract void doSmth(Creature creature);
+
 }

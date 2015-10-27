@@ -17,8 +17,7 @@ import static java.lang.Runtime.getRuntime;
 public class OOP_RPG 
 {
 	public static String log = "";
-        public static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-        public static Location[][] world;
+        
 	public static void handler(String _msg, Person dude)
 	{
 		String a[] = _msg.split(" ");
@@ -57,8 +56,8 @@ public class OOP_RPG
 			System.out.println(dude.name + " " + dude._food + " едениц сытости\nЖив:"+dude.alive+"\nХочет есть:"+dude.wantToEat+"\nВозраст:"+dude.age+"\nХП:" + dude.hp);
 			break;
 		case "атакуй":
-			if(enemies.get(Integer.parseInt(a[1])).alive)
-				dude.attack(enemies.get(Integer.parseInt(a[1])));
+			if(dude.location.members.get(Integer.parseInt(a[1])).alive)
+				dude.attack(dude.location.members.get(Integer.parseInt(a[1])));
 			else
 				System.out.println("Ему уже хватит");
 			break;
@@ -71,34 +70,21 @@ public class OOP_RPG
 	}
     public static void main(String[] args) throws IOException
     {
-        //Создание мира
-        world = new Location[100][100];
-        for(int i=0;i<100;i++)
-        {
-            for(int f=0;f<100;f++)
-            {
-                world[i][f] = new Location(i,f);
-                world[i][f].level = Math.abs((100-i + 100-f)/2); //Сложность локации
-            }
-        }
-        Person Vasya =  new Person("Вася",10,100, world[0][0]);
+        System.out.println("Загрузка...");
         Scanner in = new Scanner(System.in);
-        for(int i=0;i<3;i++)
-        {
-            enemies.add(new Enemy("Враг"+i,world[0][0]));
-            enemies.get(i).location.members.add(enemies.get(i));
-        }
+        //Создание мира
+        World.init();
+        Person Vasya =  new Person("Вася",10,100, World.world[0][0]);
         System.out.println("Внимаю твоим командам, великий!");
         while(Vasya.alive)
 	{
-            Runtime.getRuntime().exec("clear");
+            
             String x = in.nextLine();
-            handler(x,Vasya);
+            handler(x,Vasya);  
+            System.out.println("Загрузка...");
             Vasya.Update();
-            for(int i=0;i<enemies.size();i++)
-            {
-                enemies.get(i).doSmth(Vasya);
-            }
+            World.update(Vasya);
+            System.out.println("Готово!");
         }
         System.out.println("Game over");
     }

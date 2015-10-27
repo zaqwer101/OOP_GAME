@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package main;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 /**
@@ -22,10 +21,16 @@ public class Location
     {
         this.x = x; this.y = y;
         this.items = new ArrayList<Item>();
+        this.level = Math.abs((100-this.x + 100-this.y)/2);
+        this.members = new ArrayList<Creature>();
     }
     public Point getLocation()
     {
         return new Point(this.x, this.y);
+    }
+    public void addCreature(Creature creature)
+    {
+        this.members.add(creature);
     }
 }
 

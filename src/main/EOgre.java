@@ -15,7 +15,7 @@ public class EOgre extends Enemy {
     {
         super(name, location);
         this.hp = 20 + 30 * location.level;
-        this.damage = 5 + 5 * location.level;
+        this.damage = 1 + 5 * location.level;
     }
     
 }

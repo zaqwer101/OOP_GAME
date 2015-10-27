@@ -22,5 +22,10 @@ public class Person extends Creature {
 		else
 			return this.name + " умир((";
 	}
+
+    @Override
+    public void doSmth(Creature creature) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 	
 }
