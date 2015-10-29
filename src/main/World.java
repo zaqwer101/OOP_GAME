@@ -19,7 +19,6 @@ public  class World
     
     public static void init()
     {
-
         rnd = new Random();
         world = new Location[100][100];
         for(int i=0;i<100;i++)

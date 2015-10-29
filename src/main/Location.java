@@ -21,7 +21,7 @@ public class Location
     {
         this.x = x; this.y = y;
         this.items = new ArrayList<Item>();
-        this.level = Math.abs((100-this.x + 100-this.y)/2);
+        this.level = Math.abs((this.x + this.y)/2); // Определение уровня локации
         this.members = new ArrayList<Creature>();
     }
     public Point getLocation()

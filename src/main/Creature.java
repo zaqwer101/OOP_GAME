@@ -1,7 +1,9 @@
 package main;
 import java.util.ArrayList;
 
-public abstract class Creature {
+public abstract class Creature 
+{
+public Equipment weapon, body_armor;
 public Location location; //Ссылка на текущую локацию
 public String name;
 int age,damage,hp;
@@ -11,7 +13,6 @@ boolean wantToEat;
 public int _food;
 public Creature(String name, Location location)
 {
-        
     this.hp = 1;
     this.damage = 0;
     this._food = 3;
@@ -21,9 +22,8 @@ public Creature(String name, Location location)
     this.wantToEat = false;
     this.inventory = new ArrayList<Item>();
     this.moveTo(location);
-    OOP_RPG.log += this.name + " родилсо и гатов убивать\n";
+    //OOP_RPG.log += this.name + " родилсо и гатов убивать\n";
 }
-
 
 public void Eat(Food food)
 {
@@ -72,18 +72,38 @@ public void attack(Creature enemy)
 	}
 
 }
-    public void moveTo(Location location)
-        {
-            this.location = location;
-        }
-    public void goTo(Location location)
+public void moveTo(Location location)
     {
-        if((Math.abs(this.location.getLocation().x - location.getLocation().x))<= 1 & (Math.abs(this.location.getLocation().y - location.getLocation().y) <=1))
-        {
-            this.moveTo(location);
-        }
+            this.location = location;
     }
 
-    public abstract void doSmth(Creature creature);
+public void goTo(Location location) throws Exception
+    {
+    if((Math.abs(this.location.getLocation().x - location.getLocation().x))<= 1 & (Math.abs(this.location.getLocation().y - location.getLocation().y) <=1))
+    {
+        this.moveTo(location);
+    }
+    else
+        throw new Exception("Невозможно совершить переход");
+    }
+
+public void equip(Equipment eq)
+{
+    if(this.inventory.contains(eq))
+    {
+        switch(eq.type)
+        {
+            case "weapon":
+                this.weapon = eq;
+                this.damage += eq.value;
+                break;
+            case "armor":
+                this.body_armor = eq;
+                this.hp += eq.value;
+        }
+    }
+}
+
+public abstract void doSmth(Creature creature);
 
 }
