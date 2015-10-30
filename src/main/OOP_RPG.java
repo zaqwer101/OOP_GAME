@@ -28,7 +28,7 @@ public class OOP_RPG
                     a[i] = a[i].toLowerCase();
                 }
 		switch(a[0])
-		{
+            {
 		case "ешь":
 		{
                     switch (a[1])
@@ -58,12 +58,22 @@ public class OOP_RPG
                     }
                     break;
                 case "список":
-                    if(a[1].equals("врагов"))
+                    switch(a[1])
                     {
-                        for(int i=0;i<dude.location.members.size();i++)
-                        {
-                            System.out.print("("+i+")"+dude.location.members.get(i).name +"[" +dude.location.members.get(i).hp+"] ");
-                        }
+                        case "врагов":
+                            for(int i=0;i<dude.location.members.size();i++)
+                            {
+                                System.out.print("("+i+")"+dude.location.members.get(i).name +"[" +dude.location.members.get(i).hp+"] ");
+                            }
+                            System.out.println();
+                            break;
+                        case "предметов":
+                            for(int i=0;i<dude.location.items.size();i++)
+                            {
+                                System.out.println(dude.location.items.get(i).name + " ");
+                            }
+                            System.out.println();
+                            break;
                     }
                     break;
                 case "иди":
@@ -85,10 +95,27 @@ public class OOP_RPG
                     }
                     break;
                 }
-                    
-		}
-
-		
+                case "инвентарь":
+                    switch(a[1])
+                    {
+                        case "список":
+                            for(int i=0;i<dude.inventory.size();i++)
+                            {
+                                System.out.print(dude.inventory.get(i).name + "("+i+") ");
+                            }
+                            break;
+                        case "использовать":
+                            if(dude.inventory.get(Integer.parseInt(a[2])).usable)
+                            {
+                                dude.inventory.get(Integer.parseInt(a[2])).use(dude);
+                            }
+                            break;  
+                    }
+                    break;
+                case "подними":
+                    dude.pickUp(dude.location.items.get(Integer.parseInt(a[1])));
+                    break;
+            }
 	}
     public static void main(String[] args) throws IOException
     {
@@ -101,6 +128,7 @@ public class OOP_RPG
         System.out.println("Внимаю твоим командам, великий!");
         while(Vasya.alive)
 	{
+            log = "";
             World.update(Vasya);
             String x = in.nextLine();
             handler(x,Vasya);  
@@ -109,5 +137,4 @@ public class OOP_RPG
         }
         System.out.println("Game over");
     }
-
 }

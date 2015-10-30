@@ -11,9 +11,10 @@ package main;
  */
 public abstract class Equipment extends Item{
     public String type; //Тип экипировки
-    public int value; //Сколько статов даёт
+    //public int value; //Сколько статов даёт
     @Override
-    public void use(Creature point) {
+    public void use(Creature point) 
+    {
         this.equip(point);
     }
     public abstract void equip(Creature dude);

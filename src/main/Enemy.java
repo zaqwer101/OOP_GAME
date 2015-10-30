@@ -13,15 +13,15 @@ public class Enemy extends Creature {
 		{
 			if(this.wantToEat)
 			{
-				Food f = new Food(5,0);
+				Food f = new Food(0);
 				this.Eat(f);
 			}
 			else
 			{
 				if(creature.alive)
-				{
-					this.attack(creature);
-				}
+                            {
+				this.attack(creature);
+                            }
 			}
 			this.Update();
 		}

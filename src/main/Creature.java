@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public abstract class Creature 
 {
-public Equipment weapon, body_armor;
+public Equipment weapon, armor;
 public Location location; //Ссылка на текущую локацию
 public String name;
 int age,damage,hp;
@@ -50,9 +50,10 @@ public void Update()
 	if(this.hp <= 0)
 	{
 		this.alive = false;
-                for(int i = 0;i<this.inventory.size();i++)
+                for(int i = 0;i<this.inventory.size();i++) //При смерти все вещи падают в локацию
                 {
                     this.location.items.add(this.inventory.get(i));
+                    OOP_RPG.log += this.name + " выронил "+this.inventory.get(i).name;
                 }
                 this.location.members.remove(this);
                 OOP_RPG.log += this.name + " умир\n";
@@ -94,16 +95,44 @@ public void equip(Equipment eq)
         switch(eq.type)
         {
             case "weapon":
+                if(this.weapon != null)
+                    unequip(this.weapon);
                 this.weapon = eq;
                 this.damage += eq.value;
                 break;
             case "armor":
-                this.body_armor = eq;
+                if(this.armor != null)
+                    unequip(this.armor);               
+                this.armor = eq;
                 this.hp += eq.value;
+                break;
         }
+        this.inventory.remove(eq);
     }
 }
-
+public void unequip(Equipment eq)
+{
+        switch(eq.type)
+        {
+            case "weapon":
+                this.weapon = null;
+                this.damage -= eq.value;
+                break;
+            case "armor":
+                this.armor = null;
+                this.hp -= eq.value;
+                break;
+        }
+        this.inventory.add(eq);
+}
+public void pickUp(Item item)
+{
+    if(this.location.items.contains(item))
+    {
+        this.inventory.add(item);
+        this.location.items.remove(item);
+    }
+}
 public abstract void doSmth(Creature creature);
 
 }

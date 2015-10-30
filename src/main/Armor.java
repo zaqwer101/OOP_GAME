@@ -9,16 +9,16 @@ package main;
  *
  * @author zaqwer
  */
-public class Weapon extends Equipment
+public class Armor extends Equipment
 {
-    public Weapon(int level, String name)
+    public Armor(int level, String name)
     {
-        this.type = "weapon";
+        this.type = "armor";
         this.name = name;
-        this.value = level * 10 + 5;
+        this.value = level * 30 + 50;
         this.name = this.name + "["+this.value+"]";
     }
-    
+
     @Override
     public void equip(Creature dude)
     {
@@ -26,7 +26,7 @@ public class Weapon extends Equipment
     }
 
     @Override
-    public void unequip(Creature dude)
+    public void unequip(Creature dude) 
     {
         dude.unequip(this);
     }
